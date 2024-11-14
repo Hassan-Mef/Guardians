@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b38er83y31bwi"]
 
 [ext_resource type="Texture2D" uid="uid://dtvuk0yevivcp" path="res://Assets/game_bg.png" id="1_e6ktl"]
-[ext_resource type="Script" path="res://Scenes/Game.cs" id="1_wggsc"]
+[ext_resource type="Script" path="res://Scripts/Game.cs" id="1_wggsc"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
