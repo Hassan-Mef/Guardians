@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bnee74ehadrgi"]
+[gd_scene load_steps=7 format=4 uid="uid://bnee74ehadrgi"]
 
 [ext_resource type="TileSet" uid="uid://dh30nr3rh485a" path="res://Map/ground.tres" id="1_8v3ex"]
 [ext_resource type="TileSet" uid="uid://de3r0ueskrgg0" path="res://Map/foliage.tres" id="2_tclmi"]
 [ext_resource type="Texture2D" uid="uid://bhr05h4amjkrg" path="res://Assets/Images/temp_castle.png" id="3_yvpg2"]
+[ext_resource type="PackedScene" uid="uid://nub76nsh742n" path="res://Scenes/guild.tscn" id="4_om30v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vj3p6"]
 texture = ExtResource("3_yvpg2")
@@ -61,3 +62,9 @@ tile_set = ExtResource("2_tclmi")
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAMAAQAAAAEAAAAAAAQAAQAAAAIAAAAAAAUAAQAAAAMAAAAAAAYAAQAAAAQAAAAAAAcAAQAAAAUAAAAAAAgAAQAAAAYAAAAAAAkAAQAAAAcAAAAAAAoAAQAAAAgAAAABAAMAAQABAAEAAAABAAQAAQABAAIAAAABAAUAAQABAAMAAAABAAYAAQABAAQAAAABAAcAAQABAAUAAAABAAgAAQABAAYAAAABAAkAAQABAAcAAAABAAoAAQABAAgAAAACAAUAAQACAAMAAAACAAYAAQACAAQAAAACAAcAAQACAAUAAAACAAgAAQACAAYAAAACAAkAAQACAAcAAAACAAoAAQACAAgAAAA=")
 tile_set = SubResource("TileSet_ayyv7")
+
+[node name="Guild" parent="." instance=ExtResource("4_om30v")]
+offset_left = -3.0
+offset_top = -10.0
+offset_right = -3.0
+offset_bottom = -10.0

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://nub76nsh742n"]
+
+[ext_resource type="Texture2D" uid="uid://ddlt04lbjrh7h" path="res://icon.svg" id="1_auy32"]
+
+[node name="Guild" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+texture_normal = ExtResource("1_auy32")
