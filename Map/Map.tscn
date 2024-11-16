@@ -64,7 +64,3 @@ tile_map_data = PackedByteArray("AAAAAAMAAQAAAAEAAAAAAAQAAQAAAAIAAAAAAAUAAQAAAAM
 tile_set = SubResource("TileSet_ayyv7")
 
 [node name="Guild" parent="." instance=ExtResource("4_om30v")]
-offset_left = -3.0
-offset_top = -10.0
-offset_right = -3.0
-offset_bottom = -10.0
