@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://bnee74ehadrgi"]
+[gd_scene load_steps=8 format=4 uid="uid://bnee74ehadrgi"]
 
 [ext_resource type="TileSet" uid="uid://dh30nr3rh485a" path="res://Map/ground.tres" id="1_8v3ex"]
+[ext_resource type="Script" path="res://map.gd" id="1_rf2ea"]
 [ext_resource type="TileSet" uid="uid://de3r0ueskrgg0" path="res://Map/foliage.tres" id="2_tclmi"]
 [ext_resource type="Texture2D" uid="uid://bhr05h4amjkrg" path="res://Assets/Images/temp_castle.png" id="3_yvpg2"]
 [ext_resource type="PackedScene" uid="uid://nub76nsh742n" path="res://Scenes/guild.tscn" id="4_om30v"]
@@ -40,6 +41,7 @@ tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_vj3p6")
 
 [node name="TileMap" type="Node2D"]
+script = ExtResource("1_rf2ea")
 
 [node name="Path" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -64,3 +66,4 @@ tile_map_data = PackedByteArray("AAAAAAMAAQAAAAEAAAAAAAQAAQAAAAIAAAAAAAUAAQAAAAM
 tile_set = SubResource("TileSet_ayyv7")
 
 [node name="Guild" parent="." instance=ExtResource("4_om30v")]
+visible = false
