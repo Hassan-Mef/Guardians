@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dem65hciekm6x"]
+
+[ext_resource type="PackedScene" uid="uid://c43jb0x3e4yyp" path="res://Enemies/EnemyBase.tscn" id="1_y8328"]
+[ext_resource type="Script" path="res://Enemies/SlowEnemy.cs" id="2_ftkma"]
+[ext_resource type="Texture2D" uid="uid://dj8af3lo3cmaj" path="res://Assets/Images/idel_knight.png" id="2_xtjfp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xt35"]
+size = Vector2(44, 59)
+
+[node name="EnemyBase" instance=ExtResource("1_y8328")]
+script = ExtResource("2_ftkma")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(98, 33)
+texture = ExtResource("2_xtjfp")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(99, 35)
+shape = SubResource("RectangleShape2D_2xt35")
+
+[node name="HeallthBar" parent="." index="3"]
+clip_contents = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = 86.0
+offset_top = 2.0
+offset_right = 112.125
+offset_bottom = 6.0
+grow_vertical = 1
+size_flags_vertical = 1
