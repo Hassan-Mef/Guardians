@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://map.gd" id="1_rf2ea"]
 [ext_resource type="TileSet" uid="uid://de3r0ueskrgg0" path="res://Map/foliage.tres" id="2_tclmi"]
 [ext_resource type="Texture2D" uid="uid://bhr05h4amjkrg" path="res://Assets/Images/temp_castle.png" id="3_yvpg2"]
-[ext_resource type="PackedScene" uid="uid://nub76nsh742n" path="res://Scenes/guild.tscn" id="4_om30v"]
+[ext_resource type="PackedScene" uid="uid://duj6u5mh1e1u" path="res://Scenes/guild.tscn" id="4_om30v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vj3p6"]
 texture = ExtResource("3_yvpg2")

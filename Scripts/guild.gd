@@ -2,26 +2,68 @@ extends Control
 
 @export var archor_scene: PackedScene = preload("res://Scenes/archor.tscn")
 var selected_character: PackedScene = null
+
+# Define the signal
+signal character_selected(character: PackedScene)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
-#
+	pass  # Replace with function body.
 
 func _on_archor_pressed() -> void:
 	selected_character = archor_scene
-	if(selected_character):
-		print("archor is selected")
-		var character_instance = selected_character.instantiate()
+	if selected_character:
+		print("Archor is selected and scene is instanced.")
+		emit_signal("character_selected", selected_character)
+	else:
+		print("Scene is not selected")
+
+
+
+#extends Control
+#
+#@export var archor_scene: PackedScene = preload("res://Scenes/archor.tscn")
+#var selected_character: PackedScene = null
+#
+## Declare a signal to notify selection
+#signal character_selected(character: PackedScene)
+#
+#func _ready() -> void:
+	#pass
+#
+#func _on_archor_pressed() -> void:
+	#selected_character = archor_scene
+	#if selected_character:
+		#print("Archor is selected.")
+		#emit_signal("character_selected", selected_character)  # Emit signal when character is selected
+	#else:
+		#print("Scene is not selected.")
+#
+
+
+#extends Control
+#
+#@export var archor_scene: PackedScene = preload("res://Scenes/archor.tscn")
+#var selected_character: PackedScene = null
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	#pass # Replace with function body.
+	#
+#func _on_archor_pressed() -> void:
+	#selected_character = archor_scene
+	#if(selected_character):
+		#print("archor is selected")
+		#
+		#print("Archor is selected and scene is instanced.")
+	#else:
+		#print("scene is not selected")
+		
+#		section of if write here
+		#var character_instance = selected_character.instantiate()
 		#get_tree().current_scene.add_child(character_instance)
 		#get_parent().get_node("Bullets").add_child(character_instance)
-		get_parent().get_node("/root/Game/Characters").add_child(character_instance)
-		print("Archor is selected and scene is instanced.")
-	#else:
+		#get_parent().get_node("/root/Game/Characters").add_child(character_instance)
+		#end here
 		
 	#get_tree().change_scene_to_file(selected_character)
 	
