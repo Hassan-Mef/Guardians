@@ -7,40 +7,106 @@ public partial class EnemyBase : CharacterBody2D
 	[Export] public float Speed { get; set; } = 100.0f; // Movement speed
 	[Export] public int MaxHealth { get; set; } = 100;  // Maximum health
 	[Export] public int Damage { get; set; } = 10;      // Attack damage
-	
+
 	private int _currentHealth;
 	private ProgressBar _healthBar;
+	private NavigationAgent2D _navigationAgent;
 
-	// Timer for periodic actions (optional, if you have a Timer node)
-	
+	// Target position for the enemy (e.g., the base to attack)
+	private Vector2 _targetPosition;
 
 	public override void _Ready()
 	{
+		// Initialize health
 		_currentHealth = MaxHealth;
 
-		// Get the ProgressBar node
-		_healthBar = GetNode<ProgressBar>("HealthBar");
-		if (_healthBar != null)
+		// Fetch health bar
+		if (HasNode("HealthBar"))
 		{
+			_healthBar = GetNode<ProgressBar>("HealthBar");
 			_healthBar.MaxValue = MaxHealth;
 			UpdateHealthBar();
 		}
+		else
+		{
+			GD.PrintErr("HealthBar node not found in EnemyBase.");
+		}
 
-		// Initialize the Timer if present
-		// _actionTimer = GetNode<Timer>("Timer");
-		// if (_actionTimer != null)
-		// {
-		// 	_actionTimer.Timeout += OnTimerTimeout;
-		// }
+		// Fetch NavigationAgent2D
+		if (HasNode("NavigationAgent2D"))
+		{
+			_navigationAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+		}
+		else
+		{
+			GD.PrintErr("NavigationAgent2D node not found in EnemyBase.");
+		}
+
+		// Set initial target (e.g., player's base)
+		SetTargetToBase();
 	}
 
-	// Movement logic
-	virtual public void MoveTowards(Vector2 target, double delta)
+	private void SetTargetToBase()
 	{
-		// Calculate direction towards the target
-		Vector2 direction = (target - GlobalPosition).Normalized();
-		Velocity = direction * Speed;
-		MoveAndSlide();
+		// Access the TileMap from the Map node
+		var tileMap = GetNode<Node2D>("/root/Game/Map/TileMap");
+		if (tileMap == null)
+		{
+			GD.PrintErr("Error: TileMap node not found under Map.");
+			return;
+		}
+
+		// Access the Base layer
+		var baseLayer = tileMap.GetNode<TileMapLayer>("Base");
+		if (baseLayer == null)
+		{
+			GD.PrintErr("Error: Base TileMapLayer not found in TileMap.");
+			return;
+		}
+
+		// Set target to the center of the Base layer
+		var usedRect = baseLayer.GetUsedRect();
+		Vector2I centerTile = usedRect.Position + usedRect.Size / 2;
+		_targetPosition = baseLayer.MapToLocal(centerTile);
+
+		GD.Print($"Target position set to Base layer center: {_targetPosition}");
+
+		// Assign target to the NavigationAgent2D
+		if (_navigationAgent != null)
+		{
+			_navigationAgent.TargetPosition = _targetPosition;
+		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		// Handle movement using NavigationAgent2D
+		if (_navigationAgent != null)
+		{
+			Vector2 currentPosition = GlobalPosition;
+			Vector2 nextPathPosition = _navigationAgent.GetNextPathPosition();
+			GD.Print("Next path position: " + nextPathPosition);
+			Vector2 newVelocity = currentPosition.DirectionTo(nextPathPosition) * Speed;
+			GD.Print("tetsing:" +newVelocity);
+
+			if (_navigationAgent.AvoidanceEnabled)
+			{
+				_navigationAgent.SetVelocity(newVelocity);
+				GD.Print("Bro Testing: 1");
+			}
+			else
+			{
+				OnVelocityComputed(newVelocity);
+				GD.Print("Bro Testing: 2");
+			}
+
+			MoveAndSlide();
+		}
+	}
+
+	private void OnVelocityComputed(Vector2 safeVelocity)
+	{
+		Velocity = safeVelocity;
 	}
 
 	// Take damage
@@ -55,7 +121,6 @@ public partial class EnemyBase : CharacterBody2D
 		}
 	}
 
-	// Update the health bar
 	private void UpdateHealthBar()
 	{
 		if (_healthBar != null)
@@ -64,18 +129,9 @@ public partial class EnemyBase : CharacterBody2D
 		}
 	}
 
-	// Death logic
-	public void Die()
+	private void Die()
 	{
-		QueueFree(); // Remove the enemy from the scene
-					 // Add additional logic like rewarding the player
-		
-	}
-
-	// Timer timeout logic (optional)
-	private void OnTimerTimeout()
-	{
-		// Logic for periodic actions like special abilities
-		GD.Print("Timer triggered for enemy action.");
+		QueueFree();
+		// Add logic for enemy death, such as rewarding the player
 	}
 }
