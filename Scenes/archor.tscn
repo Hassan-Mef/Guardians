@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxubhfyr84qqs"]
+
+[ext_resource type="Texture2D" uid="uid://befgvkl060vi8" path="res://Assets/Images/archor.png" id="1_0fr6k"]
+
+[node name="Archor" type="CharacterBody2D"]
+texture_filter = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(12, 11)
+scale = Vector2(0.75, 0.6875)
+texture = ExtResource("1_0fr6k")
+hframes = 11
+vframes = 5
+frame = 11
