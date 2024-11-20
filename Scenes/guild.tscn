@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://duj6u5mh1e1u"]
+
+[ext_resource type="Script" path="res://Scripts/guild.gd" id="1_21a0q"]
+[ext_resource type="Texture2D" uid="uid://y8b3h6g2gudr" path="res://Assets/Images/archor_icon.png" id="1_ljgvx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvfs2"]
+bg_color = Color(0.6, 0.6, 0.6, 0.407843)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[node name="Guild" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_21a0q")
+
+[node name="Archor" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 55.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvfs2")
+
+[node name="archor" type="TextureButton" parent="Archor"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 66.0
+offset_bottom = 66.0
+texture_normal = ExtResource("1_ljgvx")
+
+[node name="Knight" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_right = 110.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvfs2")
+
+[node name="knight" type="TextureButton" parent="Knight"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 53.0
+offset_bottom = 51.0
+texture_normal = ExtResource("1_ljgvx")
+
+[connection signal="pressed" from="Archor/archor" to="." method="_on_archor_pressed"]
+[connection signal="pressed" from="Knight/knight" to="." method="_on_knight_pressed"]
