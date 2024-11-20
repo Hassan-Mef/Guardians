@@ -1,21 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b38er83y31bwi"]
+[gd_scene load_steps=3 format=3 uid="uid://b38er83y31bwi"]
 
+[ext_resource type="Script" path="res://Scripts/Game.cs" id="1_ctlfo"]
 [ext_resource type="Texture2D" uid="uid://dtvuk0yevivcp" path="res://Assets/game_bg.png" id="1_e6ktl"]
-[ext_resource type="Script" path="res://Scripts/game.gd" id="1_fp3bb"]
-[ext_resource type="PackedScene" uid="uid://bnee74ehadrgi" path="res://Map/Map.tscn" id="3_uicfy"]
-[ext_resource type="PackedScene" uid="uid://duj6u5mh1e1u" path="res://Scenes/guild.tscn" id="4_86j68"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_fp3bb")
+script = ExtResource("1_ctlfo")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 966.0
 offset_bottom = 540.0
 texture = ExtResource("1_e6ktl")
-
-[node name="TileMap" parent="." instance=ExtResource("3_uicfy")]
-
-[node name="Guild" parent="." instance=ExtResource("4_86j68")]

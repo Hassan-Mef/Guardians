@@ -7,6 +7,8 @@ public partial class Game : Control
 	private PackedScene _mapScene;      // Variable for loading Map scene
 	private PackedScene _spawnerScene; // Variable for loading Spawner scene
 
+	private PackedScene _guildScene; // Variable for loading Spawner scene
+
 	public override void _Ready()
 	{
 		// Load the Map scene
@@ -25,6 +27,23 @@ public partial class Game : Control
 		{
 			GD.PrintErr("Failed to load Map scene.");
 		}
+
+		_guildScene = GD.Load<PackedScene>("res://Scenes/guild.tscn"); // Path to Guild scene
+		if (_guildScene != null)
+		{
+			// Instance the guild scene
+			var guildInstance = _guildScene.Instantiate<Control>();
+			AddChild(guildInstance); // Add Guild as a child of Game
+			GD.Print("Guild scene loaded and added to Game.");
+
+			// Pass the guild reference to Guild (if needed)
+			
+
+		}
+		else
+		{
+			GD.PrintErr("Failed to load Guild scene.");
+		}
 	}
 
 	private void SetupSpawner(Node2D mapInstance)
@@ -41,7 +60,7 @@ public partial class Game : Control
 			// Pass the map reference to Spawner (if needed)
 			if (spawnerInstance is Spawner spawnerScript)
 			{
-				spawnerScript.Initialize (mapInstance); // Initialize Spawner with map reference
+				spawnerScript.Initialize(mapInstance); // Initialize Spawner with map reference
 				GD.Print("Spawner initialized with map reference.");
 			}
 		}
@@ -50,5 +69,7 @@ public partial class Game : Control
 			GD.PrintErr("Failed to load Spawner scene.");
 		}
 	}
+
+
 }
 

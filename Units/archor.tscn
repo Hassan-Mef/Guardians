@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxubhfyr84qqs"]
+
+[ext_resource type="Texture2D" uid="uid://cvto7xjdg0ftx" path="res://Assets/archer.png" id="1_aiuxy"]
+[ext_resource type="Texture2D" uid="uid://befgvkl060vi8" path="res://Assets/Images/archor.png" id="1_sm58a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afk7i"]
+size = Vector2(48, 48)
+
+[node name="Archor" type="CharacterBody2D"]
+texture_filter = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(37, 29)
+texture = ExtResource("1_aiuxy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(12, 11)
+scale = Vector2(0.935, 0.858)
+texture = ExtResource("1_sm58a")
+hframes = 11
+vframes = 5
+frame = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(31, 29)
+shape = SubResource("RectangleShape2D_afk7i")

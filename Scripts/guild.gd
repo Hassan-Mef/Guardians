@@ -1,22 +1,54 @@
 extends Control
 
-@export var archor_scene: PackedScene = preload("res://Scenes/archor.tscn")
-var selected_character: PackedScene = null
+@export var knight_scene : PackedScene
 
-# Define the signal
-signal character_selected(character: PackedScene)
+var selected_character : PackedScene = null
+var map_instance : Node2D = null  # Variable to hold the map reference
 
-# Called when the node enters the scene tree for the first time.
+signal character_selected(character : PackedScene)
+
+# Called when the node enters the scene tree for the first time
 func _ready() -> void:
-	pass  # Replace with function body.
+	pass  # Replace with function body if needed
 
-func _on_archor_pressed() -> void:
-	selected_character = archor_scene
+# Called when the knight button is pressed
+func _on_knight_pressed() -> void:
+	selected_character = knight_scene
 	if selected_character:
-		print("Archor is selected and scene is instanced.")
+		print("Knight is selected.")
 		emit_signal("character_selected", selected_character)
 	else:
-		print("Scene is not selected")
+		print("Knight scene is not selected.")
+
+# This method will be called when the character is selected in Game.cs
+func _on_character_selected(character : PackedScene) -> void:
+	selected_character = character
+	print("Character selected for placement.")
+
+# Handle placing the character on the map when the mouse is clicked
+func _on_mouse_button_pressed(event : InputEventMouseButton) -> void:
+	if event.button_index == MOUSE_BUTTON_LEFT and selected_character != null:
+		var screen_position = event.position
+		if map_instance:
+			# Convert screen position to map's local position
+			var map_position = map_instance.to_local(screen_position)
+			var tile_coords = (map_instance as TileMap).local_to_map(map_position)
+			if IsValidPlacement(tile_coords):
+				var character_instance = selected_character.instantiate()
+				character_instance.position = (map_instance as TileMap).map_to_local(tile_coords)
+				map_instance.add_child(character_instance)
+				print("Character placed at " + str(tile_coords))
+				selected_character = null
+			else:
+				print("Invalid placement location.")
+
+# This is a placeholder for the IsValidPlacement method
+func IsValidPlacement(tile_coords : Vector2i) -> bool:
+	# Add your logic to check if the tile is valid for placement
+	return true  # For now, we assume all positions are valid
+
+
+
 
 
 

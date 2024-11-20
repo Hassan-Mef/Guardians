@@ -9,8 +9,8 @@ public partial class Spawner : Node2D
 
 	private Timer spawnTimer;
 	private float spawnRate = 10f; // Initial spawn rate (in seconds)
-	private int minEnemiesToSpawn = 3; // Initial number of enemies to spawn
-	private int maxEnemiesToSpawn = 4;
+	private int minEnemiesToSpawn = 1; // Initial number of enemies to spawn
+	private int maxEnemiesToSpawn = 2;
 	private float elapsedTime = 0f;
 
 	private Node2D _mapInstance; // Store the map reference
