@@ -17,5 +17,5 @@ func _on_start_pressed() -> void:
 	print("map loaded without game")
 
 
-func _on_quit_pressed() -> void:
+func _on_quit_pressed() -> void:\
 	get_tree().quit()
