@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3xnr7f7g5amg"]
 
-[ext_resource type="Script" path="res://Scripts/Guild.cs" id="1_djyeg"]
+[ext_resource type="Script" path="res://Scripts/guild.gd" id="1_22qvq"]
 [ext_resource type="Texture2D" uid="uid://y8b3h6g2gudr" path="res://Assets/Images/archor_icon.png" id="1_ljgvx"]
 [ext_resource type="PackedScene" uid="uid://bxubhfyr84qqs" path="res://Units/archor.tscn" id="2_4ql0e"]
 
@@ -15,9 +15,9 @@ border_color = Color(0, 0, 0, 1)
 [node name="Guild" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_djyeg")
-knightScene = ExtResource("2_4ql0e")
-archerScene = ExtResource("2_4ql0e")
+script = ExtResource("1_22qvq")
+knight_scene = ExtResource("2_4ql0e")
+archer_scene = ExtResource("2_4ql0e")
 
 [node name="Archor" type="Panel" parent="."]
 layout_mode = 0
