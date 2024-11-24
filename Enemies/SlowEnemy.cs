@@ -16,7 +16,7 @@ public partial class SlowEnemy : EnemyBase
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		if (_animationPlayer != null)
 		{
-			_animationPlayer.Play("idel");
+			_animationPlayer.Play("Idle");
 		}
 		else
 		{

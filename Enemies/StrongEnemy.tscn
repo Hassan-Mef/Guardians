@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq3iqn8fhljgy"]
+
+[ext_resource type="PackedScene" uid="uid://c43jb0x3e4yyp" path="res://Enemies/EnemyBase.tscn" id="1_q2ytk"]
+[ext_resource type="Texture2D" uid="uid://br14kymgn5ehe" path="res://Assets/Images/strong_1.png" id="2_1et25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u20ck"]
+size = Vector2(39, 44)
+
+[node name="EnemyBase" instance=ExtResource("1_q2ytk")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(14, 17)
+scale = Vector2(0.378906, 0.423828)
+texture = ExtResource("2_1et25")
+offset = Vector2(-16, 0)
+flip_h = true
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(19, 23)
+shape = SubResource("RectangleShape2D_u20ck")
+
+[node name="NavigationAgent2D" parent="." index="4"]
+avoidance_enabled = true
+radius = 0.01
+neighbor_distance = 100.0
+time_horizon_obstacles = 1.84

@@ -101,12 +101,14 @@ public partial class EnemyBase : CharacterBody2D
 			}
 
 			MoveAndSlide();
+			MoveAndCollide(newVelocity);
 		}
 	}
 
 	private void OnVelocityComputed(Vector2 safeVelocity)
 	{
 		Velocity = safeVelocity;
+		
 	}
 
 	// Take damage
