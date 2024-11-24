@@ -7,19 +7,79 @@ extends Control
 var selected_character: PackedScene = null  # Holds the selected character scene (e.g., Knight or Archer)
 var map_layer: TileMapLayer = null  # Reference to the TileMap layer in the game scene
 
+# target time to make button enabled or disabled
+var target_time=0
+#var change_archer_texture=preload("res://Assets/Images/archor_icon_clickable.png")
+#var normal_archer_texture=preload("res://Assets/Images/archor_icon.png")
+var archerPanel:Panel
+var knightPanel:Panel
+var KnightStyleBox:StyleBoxFlat
+var archerStyleBox:StyleBoxFlat
+# to change the picture to show enable and disable of button
+var archerButton:TextureButton 
+var knightButton:TextureButton
+
 # Signal to notify when a character is selected
 signal character_selected(character)
 
 func _ready() -> void:
 	# Access map layer, configure properties, etc.
 	map_layer = get_node("/root/Game/Map/TileMap/Ground")
+	archerButton=$Archor/archor
+	knightButton=$Knight/knight
+	archerPanel=$Archor
+	knightPanel=$Knight
+#	 for changing the background of knight button
+	KnightStyleBox=StyleBoxFlat.new()
+	KnightStyleBox.bg_color= Color(1,1,1,0)
+	KnightStyleBox.set_border_width_all(3)
+	KnightStyleBox.border_color=Color(0,0,0)
+#	 for changing the background the archer button
+	archerStyleBox=StyleBoxFlat.new()
+	archerStyleBox.bg_color= Color(1,1,1,0)
+	archerStyleBox.set_border_width_all(3)
+	archerStyleBox.border_color=Color(0,0,0)
+	archerPanel.add_theme_stylebox_override("panel",archerStyleBox)
+	knightPanel.add_theme_stylebox_override("panel",KnightStyleBox)
+	
 	if map_layer:
 		print("Guild scene ready and configured.")
 	else:
 		print("Map layer not found!")
+		
+
+func _process(delta):
+	target_time+=delta
+	print(target_time)
+	KnightStyleBox.bg_color= Color(1,1,1,0)
+	archerStyleBox.bg_color= Color(1,1,1,0)
+	if(target_time>=5):
+		print("5 delta time passed")
+		archerStyleBox.bg_color= Color(0,1,1,0.5)
+		#archerPanel.add_theme_stylebox_override("archerPanel",styleBox)
+		archerButton.disabled=false
+		#archerButton.texture_normal=change_archer_texture
+	if(target_time>=8):
+		print("8 dekta passed")
+		KnightStyleBox.bg_color= Color(0,1,1,0.5)
+		knightButton.disabled=false
+
+
+# Called when the archer button is pressed
+func _on_archor_pressed() -> void:
+	target_time-=5
+	archerButton.disabled=true
+	selected_character = archer_scene
+	if selected_character:
+		print("Archer is selected.")
+		emit_signal("character_selected", selected_character)
+	else:
+		print("Archer scene is not available.")
 
 # Called when the knight button is pressed
 func _on_knight_pressed() -> void:
+	target_time-=8
+	knightButton.disabled=true
 	selected_character = knight_scene
 	if selected_character:
 		print("Knight is selected.")
@@ -28,14 +88,7 @@ func _on_knight_pressed() -> void:
 	else:
 		print("Knight scene is not available.")
 
-# Called when the archer button is pressed
-func _on_archer_pressed() -> void:
-	selected_character = archer_scene
-	if selected_character:
-		print("Archer is selected.")
-		emit_signal("character_selected", selected_character)
-	else:
-		print("Archer scene is not available.")
+
 
 # This method will be called when the character is selected in Game.gd
 func _on_character_selected(character: PackedScene) -> void:

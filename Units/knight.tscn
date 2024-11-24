@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://droagkoo3cgip"]
+
+[ext_resource type="Texture2D" uid="uid://degxk2c88p8in" path="res://Assets/Images/knight.png" id="1_gq8ao"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4opr"]
+size = Vector2(34, 43.625)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(22, 11)
+texture = ExtResource("1_gq8ao")
+hframes = 11
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(15, 21.1875)
+shape = SubResource("RectangleShape2D_q4opr")
