@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Spawner.cs" id="1_7t0vx"]
 [ext_resource type="PackedScene" uid="uid://dem65hciekm6x" path="res://Enemies/SlowEnemy.tscn" id="2_4uiyl"]
-[ext_resource type="PackedScene" uid="uid://cq3iqn8fhljgy" path="res://Enemies/StrongEnemy.tscn" id="3_mqohq"]
+[ext_resource type="PackedScene" uid="uid://csk4e0i2avkuy" path="res://Enemies/StrongEnemy.tscn" id="3_mqohq"]
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_7t0vx")
