@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxubhfyr84qqs"]
+[gd_scene load_steps=8 format=3 uid="uid://bxubhfyr84qqs"]
 
-[ext_resource type="Script" path="res://archor.gd" id="1_lnxw0"]
+[ext_resource type="Script" path="res://Units/archor.gd" id="1_lnxw0"]
 [ext_resource type="Texture2D" uid="uid://thhemubxsje5" path="res://Assets/Images/archer.png" id="1_u7aku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afk7i"]
@@ -44,6 +44,9 @@ _data = {
 "attack": SubResource("Animation_gohwq")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twgyh"]
+size = Vector2(186, 95)
+
 [node name="Archor" type="CharacterBody2D"]
 texture_filter = 3
 script = ExtResource("1_lnxw0")
@@ -63,5 +66,12 @@ shape = SubResource("RectangleShape2D_afk7i")
 libraries = {
 "": SubResource("AnimationLibrary_phjsl")
 }
+
+[node name="Area2D" type="Area2D" parent="."]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(93, 48.5)
+shape = SubResource("RectangleShape2D_twgyh")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -51,17 +51,17 @@ func _ready() -> void:
 
 func _process(delta):
 	target_time+=delta
-	print(target_time)
+	#print(target_time)
 	KnightStyleBox.bg_color= Color(1,1,1,0)
 	archerStyleBox.bg_color= Color(1,1,1,0)
 	if(target_time>=5):
-		print("5 delta time passed")
+		#print("5 delta time passed")
 		archerStyleBox.bg_color= Color(0,1,1,0.5)
 		#archerPanel.add_theme_stylebox_override("archerPanel",styleBox)
 		archerButton.disabled=false
 		#archerButton.texture_normal=change_archer_texture
 	if(target_time>=8):
-		print("8 dekta passed")
+		#print("8 dekta passed")
 		KnightStyleBox.bg_color= Color(0,1,1,0.5)
 		knightButton.disabled=false
 
