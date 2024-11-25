@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3xnr7f7g5amg"]
+[gd_scene load_steps=6 format=3 uid="uid://d3xnr7f7g5amg"]
 
 [ext_resource type="Script" path="res://Scripts/guild.gd" id="1_22qvq"]
 [ext_resource type="Texture2D" uid="uid://y8b3h6g2gudr" path="res://Assets/Images/archor_icon.png" id="1_ljgvx"]
 [ext_resource type="PackedScene" uid="uid://bxubhfyr84qqs" path="res://Units/archor.tscn" id="2_4ql0e"]
 [ext_resource type="PackedScene" uid="uid://droagkoo3cgip" path="res://Units/knight.tscn" id="2_a5hdn"]
+[ext_resource type="Texture2D" uid="uid://b68ojc3gs5c7r" path="res://Assets/Images/knight/icon.png" id="5_0f7wx"]
 
 [node name="Guild" type="Control"]
 layout_mode = 3
@@ -33,11 +34,11 @@ offset_bottom = 52.0
 
 [node name="knight" type="TextureButton" parent="Knight"]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 2.0
-offset_right = 53.0
-offset_bottom = 51.0
-texture_normal = ExtResource("1_ljgvx")
+offset_left = -5.0
+offset_top = -18.0
+offset_right = 59.0
+offset_bottom = 46.0
+texture_normal = ExtResource("5_0f7wx")
 
 [connection signal="pressed" from="Archor/archor" to="." method="_on_archor_pressed"]
 [connection signal="pressed" from="Knight/knight" to="." method="_on_knight_pressed"]
