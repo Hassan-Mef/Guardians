@@ -15,10 +15,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
+offset_left = -4.0
 offset_top = 1.0
 offset_right = 962.0
-offset_bottom = 543.0
+offset_bottom = 552.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_rjplb")
@@ -28,20 +28,20 @@ visible = false
 
 [node name="start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 427.0
-offset_top = 179.0
-offset_right = 543.0
-offset_bottom = 230.0
+offset_left = 370.0
+offset_top = 157.0
+offset_right = 547.0
+offset_bottom = 208.0
 theme_override_fonts/font = ExtResource("2_qs51u")
 theme_override_font_sizes/font_size = 36
 text = "START GAME"
 
 [node name="quit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 423.0
-offset_top = 253.0
-offset_right = 600.0
-offset_bottom = 304.0
+offset_left = 370.0
+offset_top = 228.0
+offset_right = 547.0
+offset_bottom = 279.0
 theme_override_fonts/font = ExtResource("2_qs51u")
 theme_override_font_sizes/font_size = 36
 text = "quit"

@@ -25,13 +25,17 @@ grow_vertical = 2
 show_percentage = false
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 3.0
-target_desired_distance = 2.0
-path_max_distance = 900.0
+path_desired_distance = 100.45
+target_desired_distance = 150.0
+path_max_distance = 10.0
 path_postprocessing = 1
-radius = 15.0
-time_horizon_obstacles = 0.25
-max_speed = 200.0
+simplify_epsilon = 0.115
+avoidance_enabled = true
+radius = 77.98
+neighbor_distance = 50.0
+max_neighbors = 5
+max_speed = 50.0
 avoidance_priority = 0.0
 debug_enabled = true
 debug_path_custom_color = Color(0.994039, 0.127967, 3.85046e-07, 1)
+debug_path_custom_point_size = 4.57

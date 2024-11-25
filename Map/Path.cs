@@ -22,8 +22,10 @@ public partial class Path : TileMapLayer
 		if (_foliageLayer != null && _foliageLayer.GetUsedCellsById(0).Contains(coords))
 		{
 			return true;
+			//GD.Print("Hello found somehting") ;
 		}
 		return false;
+		
 	}
 
 	public void TileDataRuntimeUpdate(Vector2I coords, TileData tileData)
@@ -32,6 +34,7 @@ public partial class Path : TileMapLayer
 		if (_foliageLayer != null && _foliageLayer.GetUsedCellsById(0).Contains(coords))
 		{
 			tileData.SetNavigationPolygon(0, null); // Replace '8' with the appropriate polygon ID if needed
+			GD.Print("Still stuck somewhere");
 		}
 	}
 }
