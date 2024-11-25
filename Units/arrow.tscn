@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://kemmsosrqf6j"]
+
+[ext_resource type="Texture2D" uid="uid://bfuck2lu5tw23" path="res://Assets/Images/arrow.png" id="1_eynj8"]
+
+[sub_resource type="GDScript" id="GDScript_qvwbe"]
+script/source = "extends Node2D
+
+var arrowSpeed=200
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	position.x+=delta
+	if position.x>800:
+		queue_free()
+"
+
+[node name="Arrow" type="Node2D"]
+script = SubResource("GDScript_qvwbe")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(16, 3)
+texture = ExtResource("1_eynj8")

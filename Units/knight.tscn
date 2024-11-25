@@ -1,6 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://droagkoo3cgip"]
 
+
 [ext_resource type="Script" path="res://Units/knight.gd" id="1_082in"]
+
 [ext_resource type="Texture2D" uid="uid://bte2p8xwnivkh" path="res://Assets/Images/knight/_Idle.png" id="1_fmc6b"]
 [ext_resource type="Texture2D" uid="uid://v5wl6l8naw47" path="res://Assets/Images/knight/_Attack2.png" id="2_nw166"]
 [ext_resource type="Texture2D" uid="uid://dqh8pqmdrmjna" path="res://Assets/Images/knight/_Death.png" id="4_8s2a6"]

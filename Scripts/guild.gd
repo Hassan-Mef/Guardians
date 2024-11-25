@@ -72,7 +72,7 @@ func _on_archor_pressed() -> void:
 	archerButton.disabled=true
 	selected_character = archer_scene
 	if selected_character:
-		print("Archer is selected.")
+		#print("Archer is selected.")
 		emit_signal("character_selected", selected_character)
 	else:
 		print("Archer scene is not available.")
@@ -83,7 +83,7 @@ func _on_knight_pressed() -> void:
 	knightButton.disabled=true
 	selected_character = knight_scene
 	if selected_character:
-		print("Knight is selected.")
+		#print("Knight is selected.")
 		# Emit the signal to notify that a character is selected
 		emit_signal("character_selected", selected_character)
 	else:
@@ -94,7 +94,7 @@ func _on_knight_pressed() -> void:
 # This method will be called when the character is selected in Game.gd
 func _on_character_selected(character: PackedScene) -> void:
 	selected_character = character
-	print("Character selected for placement.")
+	#print("Character selected for placement.")
 
 # Handle placing the character on the map when the mouse is clicked
 func _on_mouse_button_pressed(event: InputEventMouseButton) -> void:
@@ -115,7 +115,7 @@ func _on_mouse_button_pressed(event: InputEventMouseButton) -> void:
 				var character_instance = selected_character.instantiate()
 				character_instance.position = map_layer.map_to_local(tile_coords)
 				map_layer.add_child(character_instance)
-				print("Character placed at %s." % str(tile_coords))
+				#print("Character placed at %s." % str(tile_coords))
 
 				# Reset the selected character after placement
 				selected_character = null
