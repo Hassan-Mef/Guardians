@@ -51,7 +51,7 @@ func _ready() -> void:
 
 func _process(delta):
 	target_time+=delta
-	print(target_time)
+	#print(target_time)
 	KnightStyleBox.bg_color= Color(1,1,1,0)
 	archerStyleBox.bg_color= Color(1,1,1,0)
 	if(target_time>=5):

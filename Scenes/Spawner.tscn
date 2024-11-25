@@ -1,8 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba3flb4jrtt3g"]
+[gd_scene load_steps=4 format=3 uid="uid://dvjb0lra5lhkv"]
 
 [ext_resource type="Script" path="res://Scripts/Spawner.cs" id="1_7t0vx"]
 [ext_resource type="PackedScene" uid="uid://dem65hciekm6x" path="res://Enemies/SlowEnemy.tscn" id="2_4uiyl"]
+[ext_resource type="PackedScene" uid="uid://csk4e0i2avkuy" path="res://Enemies/StrongEnemy.tscn" id="3_mqohq"]
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_7t0vx")
-EnemyScenes = Array[PackedScene]([ExtResource("2_4uiyl")])
+EnemyScenes = Array[PackedScene]([ExtResource("2_4uiyl"), ExtResource("3_mqohq")])
