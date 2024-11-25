@@ -41,7 +41,8 @@ func _ready() -> void:
 	archerStyleBox.border_color=Color(0,0,0)
 	archerPanel.add_theme_stylebox_override("panel",archerStyleBox)
 	knightPanel.add_theme_stylebox_override("panel",KnightStyleBox)
-	
+	archerButton.disabled=true
+	knightButton.disabled=true
 	if map_layer:
 		print("Guild scene ready and configured.")
 	else:
