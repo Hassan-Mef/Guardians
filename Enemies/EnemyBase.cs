@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Text.RegularExpressions;
 
 public partial class EnemyBase : CharacterBody2D
 {
@@ -45,6 +46,8 @@ public partial class EnemyBase : CharacterBody2D
 		// Set initial target (e.g., player's base)
 		SetTargetToBase();
 		AddToGroup("enemies");
+		GD.Print("Enemies added to group");
+		
 	}
 
 	private void SetTargetToBase()
