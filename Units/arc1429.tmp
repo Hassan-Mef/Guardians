@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxubhfyr84qqs"]
 
-[ext_resource type="Script" path="res://Units/archor.gd" id="1_lnxw0"]
+[ext_resource type="Script" path="res://Scripts/Units/archor.gd" id="1_lnxw0"]
 [ext_resource type="Texture2D" uid="uid://thhemubxsje5" path="res://Assets/Images/archer.png" id="1_u7aku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afk7i"]
