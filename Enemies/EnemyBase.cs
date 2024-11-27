@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Text.RegularExpressions;
 
 public partial class EnemyBase : CharacterBody2D
 {
@@ -44,6 +45,9 @@ public partial class EnemyBase : CharacterBody2D
 
 		// Set initial target (e.g., player's base)
 		SetTargetToBase();
+		AddToGroup("enemies");
+		GD.Print("Enemies added to group");
+		
 	}
 
 	private void SetTargetToBase()
@@ -90,14 +94,14 @@ public partial class EnemyBase : CharacterBody2D
 			// Check if the enemy is stuck or not moving (i.e., position is almost the same as the next position)
 			if (currentPosition.DistanceTo(nextPathPosition) < 5) // Threshold for being stuck
 			{
-				GD.Print("Enemy is stuck, recalculating path...");
+				//GD.Print("Enemy is stuck, recalculating path...");
 				_navigationAgent.SetTargetPosition(_targetPosition); // Recalculate the path
 			}
 
 			if (_navigationAgent.AvoidanceEnabled)
 			{
 				Vector2 nextPosition = _navigationAgent.GetNextPathPosition();
-				GD.Print($"Next Path: {nextPosition}, Current Position: {GlobalPosition}");
+			//	GD.Print($"Next Path: {nextPosition}, Current Position: {GlobalPosition}");
 			}
 
 
@@ -161,10 +165,12 @@ public partial class EnemyBase : CharacterBody2D
 	public void TakeDamage(int amount)
 	{
 		_currentHealth -= amount;
+		GD.Print($"Enemy took {amount} damage, current health: {_currentHealth}"); // Debug print
 		UpdateHealthBar();
 
 		if (_currentHealth <= 0)
 		{
+			GD.Print("Enemy died.");
 			Die();
 		}
 	}
@@ -174,6 +180,7 @@ public partial class EnemyBase : CharacterBody2D
 		if (_healthBar != null)
 		{
 			_healthBar.Value = _currentHealth;
+			GD.Print($"Health bar updated: {_healthBar.Value}"); // Debug print
 		}
 	}
 
@@ -181,5 +188,15 @@ public partial class EnemyBase : CharacterBody2D
 	{
 		QueueFree();
 		// Add logic for enemy death, such as rewarding the player
+	}
+
+	public void _on_enemy_entered(Node body)
+	{
+		GD.Print("Body entered: " + body.Name);  // Print which body enters
+		if (body.IsInGroup("enemies"))
+		{
+			GD.Print("Enemy detected, applying damage.");
+			body.Call("TakeDamage", 10);  // Apply damage
+		}
 	}
 }

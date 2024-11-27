@@ -104,17 +104,16 @@ public partial class Spawner : Node2D
 	{
 		// Update elapsed time
 		elapsedTime += (float)spawnTimer.WaitTime;
-		// Increase spawn rate every 30 seconds after 1 minute
-		if (elapsedTime >= 60f && spawnRate > 10f)
+
+		// Gradually increase spawn rate every 30 seconds after 1 minute
+		if (elapsedTime >= 60f && spawnRate > 2f) // Limit spawnRate to avoid spawning too frequently
 		{
-			spawnRate -= 5f; // Decrease time between spawns
-			spawnTimer.WaitTime = (float)spawnRate; // Explicit cast to float
-			minEnemiesToSpawn++;
-			maxEnemiesToSpawn++;
-			GD.Print($"Spawn rate increased: {spawnRate}s, Enemies to spawn: {minEnemiesToSpawn}-{maxEnemiesToSpawn}");
+			spawnRate -= 0.5f; // Reduce time between spawns
+			spawnTimer.WaitTime = (float)spawnRate; // Update the timer's wait time
+			GD.Print($"Spawn rate increased: {spawnRate}s");
 		}
 
-		// Spawn enemies
+		// Spawn a single enemy
 		var spawnPositions = GetSpawnPositions();
 		if (spawnPositions.Count == 0)
 		{
@@ -122,15 +121,12 @@ public partial class Spawner : Node2D
 			return;
 		}
 
-		int enemiesToSpawn = (int)(GD.Randi() % (maxEnemiesToSpawn - minEnemiesToSpawn + 1)) + minEnemiesToSpawn;
-		GD.Print($"Spawning {enemiesToSpawn} enemies...");
-
-		for (int i = 0; i < enemiesToSpawn; i++)
-		{
-			Vector2 spawnPosition = spawnPositions[(int)(GD.Randi() % spawnPositions.Count)];
-			SpawnRandomEnemy(spawnPosition);
-		}
+		// Choose a random spawn position
+		Vector2 spawnPosition = spawnPositions[(int)(GD.Randi() % spawnPositions.Count)];
+		GD.Print($"Spawning 1 enemy at position {spawnPosition}...");
+		SpawnRandomEnemy(spawnPosition);
 	}
+
 
 	private void SpawnRandomEnemy(Vector2 position)
 	{
