@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 # Damage and timing constants
-const DAMAGE_INTERVAL = 0.5  # Interval between damage application
-const DAMAGE_AMOUNT = 30     # Damage dealt per interval
+const DAMAGE_INTERVAL = 2  # Interval between damage application
+const DAMAGE_AMOUNT = 10    # Damage dealt per interval
 
 # Node references
 @onready var animation = $AnimationPlayer
@@ -15,15 +15,19 @@ var time = 0.0  # Tracks animation state timing
 var enemy_in_range: Node = null  # Tracks the current enemy in range
 @onready var attack_timer = Timer.new()  # Timer for controlling damage intervals
 
+@export var MaxHealth: int = 150  # Knights have higher health than archers
+var current_health: int
+
 func _ready():
 	# Attach the attack timer dynamically
 	add_child(attack_timer)
 	attack_timer.wait_time = DAMAGE_INTERVAL
 	attack_timer.connect("timeout", Callable(self, "_apply_damage"))
-
+	current_health = MaxHealth
 	# Connect attack area signals
 	attack_area.connect("body_entered", Callable(self, "_on_enemy_entered"))
 	attack_area.connect("body_exited", Callable(self, "_on_enemy_exited"))
+	add_to_group("units")
 
 func _physics_process(delta: float) -> void:
 	if enemy_in_range:
@@ -73,3 +77,13 @@ func _die_mode():
 	attack.visible = false
 	die.visible = true
 	animation.play("die")
+	
+func TakeDamage(amount: int) -> void:
+	current_health -= amount
+	print("Knight took ", amount, " damage. Remaining health: ", current_health)
+	if current_health <= 0:
+		Die()
+
+func Die() -> void:
+	print("Knight has died.")
+	queue_free()  # Remove the unit from the game

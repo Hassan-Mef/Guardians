@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 public partial class EnemyBase : CharacterBody2D
@@ -8,7 +9,13 @@ public partial class EnemyBase : CharacterBody2D
 	[Export] public float Speed { get; set; } = 100.0f; // Movement speed
 	[Export] public int MaxHealth { get; set; } = 100;  // Maximum health
 	[Export] public int Damage { get; set; } = 10;      // Attack damage
-
+	[Export] public int AttackDamage { get; set; } = 20; // Damage dealt to units
+	[Export] public float AttackInterval { get; set; } = 1.0f; // Time between attacks
+	private Timer _attackTimer; // Timer to handle attack intervals
+	private Node _unitInRange; // Tracks the unit currently in range
+	private Node _base; // Reference to the base node
+	private bool _isAttackingBase = false;
+	private List<Node> _unitsInRange = new();
 	private int _currentHealth;
 	private ProgressBar _healthBar;
 	private NavigationAgent2D _navigationAgent;
@@ -47,7 +54,30 @@ public partial class EnemyBase : CharacterBody2D
 		SetTargetToBase();
 		AddToGroup("enemies");
 		GD.Print("Enemies added to group");
-		
+
+
+		// Add attack timer
+		_attackTimer = new Timer();
+		_attackTimer.WaitTime = AttackInterval;
+		_attackTimer.OneShot = false;
+		_attackTimer.Connect("timeout", new Callable(this, nameof(OnAttackTimeout)));
+		AddChild(_attackTimer);
+
+		// Ensure Area2D is set up correctly
+		if (HasNode("Area2D"))
+		{
+			var attackArea = GetNode<Area2D>("Area2D");
+			attackArea.Connect("body_entered", new Callable(this, nameof(OnUnitEntered)));
+			attackArea.Connect("body_exited", new Callable(this, nameof(OnUnitExited)));
+
+		}
+		else
+		{
+			GD.PrintErr("Area2D node is missing in the enemy scene.");
+		}
+
+		_base = GetNodeOrNull<Node>("/root/Game/Map/Base"); // Adjust the path according to your scene structure
+
 	}
 
 	private void SetTargetToBase()
@@ -79,7 +109,7 @@ public partial class EnemyBase : CharacterBody2D
 		// Assign target to the NavigationAgent2D
 		if (_navigationAgent != null)
 		{
-			_targetPosition.X = _targetPosition.X - 100 ;
+			_targetPosition.X = _targetPosition.X + 25 ;
 			_navigationAgent.TargetPosition = _targetPosition;
 		}
 	}
@@ -119,10 +149,30 @@ public partial class EnemyBase : CharacterBody2D
 
 			// Move the character
 			MoveAndSlide();
+
+			// Check if enemy has reached the base
+			if (currentPosition.DistanceTo(_targetPosition) < 20) // Close enough to the base
+			{
+				AttackBase();
+			}
 		}
 	}
 
+	private void AttackBase()
+	{
+		if (_base != null && !_isAttackingBase)
+		{
+			_isAttackingBase = true;
+			_base.Call("TakeDamage", AttackDamage);
+			GD.Print($"Enemy dealt {AttackDamage} damage to the base.");
+			GetTree().CreateTimer(1.0f).Connect("timeout", new Callable(this, nameof(ResetBaseAttack)));
+		}
+	}
 
+	private void ResetBaseAttack()
+	{
+		_isAttackingBase = false;
+	}
 
 	private void OnVelocityComputed(Vector2 safeVelocity)
 	{
@@ -156,9 +206,6 @@ public partial class EnemyBase : CharacterBody2D
 			GD.PrintErr("Foliage layer not found.");
 		}
 	}
-
-
-
 
 
 	// Take damage
@@ -199,4 +246,61 @@ public partial class EnemyBase : CharacterBody2D
 			body.Call("TakeDamage", 10);  // Apply damage
 		}
 	}
+
+	private void OnUnitEntered(Node body)
+	{
+		if (body.IsInGroup("units"))
+		{
+			_unitsInRange.Add(body); // Add to the list of units in range
+			GD.Print($"{Name}: Unit {body.Name} entered attack range."); // Debug: unit entered
+
+			// Start the attack timer if not already running
+			if (_attackTimer.TimeLeft == 0) // Check if the timer is not running
+			{
+				GD.Print($"{Name}: Starting attack timer."); // Debug: starting attack timer
+				_attackTimer.Start();
+			}
+		}
+	}
+
+
+	private void OnUnitExited(Node body)
+	{
+		if (_unitsInRange.Contains(body))
+		{
+			_unitsInRange.Remove(body); // Remove the unit from the list
+			GD.Print($"{Name}: Unit {body.Name} exited attack range."); // Debug: unit exited
+
+			// Stop the attack timer if no units are left in range
+			if (_unitsInRange.Count == 0)
+			{
+				GD.Print($"{Name}: No units in range, stopping attack timer."); // Debug: stopping attack timer
+				_attackTimer.Stop();
+			}
+		}
+	}
+
+	private void OnAttackTimeout()
+	{
+		if (_unitsInRange.Count > 0)
+		{
+			// Attack the first unit in the list
+			Node target = _unitsInRange[0];
+			if (target != null)
+			{
+				GD.Print($"{Name}: Attacking {target.Name} for {AttackDamage} damage."); // Debug: attacking unit
+				target.Call("TakeDamage", AttackDamage); // Deal damage to the unit
+			}
+			else
+			{
+				GD.Print($"{Name}: First unit in range is null, skipping attack."); // Debug: if target is null
+			}
+		}
+		else
+		{
+			GD.Print($"{Name}: No units in range during attack timeout."); // Debug: no units in range
+		}
+	}
+
+
 }

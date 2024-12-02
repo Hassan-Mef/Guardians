@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-const DAMAGE_INTERVAL = 0.5  # Time in seconds between damage application
-const DAMAGE_AMOUNT = 25   # Amount of damage dealt per interval
+const DAMAGE_INTERVAL = 1  # Time in seconds between damage application
+const DAMAGE_AMOUNT = 5   # Amount of damage dealt per interval
 
 @onready var animation = $AnimationPlayer
 @onready var attack_area = $Area2D
@@ -11,12 +11,17 @@ var enemy_in_range: Node = null  # Tracks the current enemy in range
 var archerPlay: bool = false  # Don't start attack animation unless enemy is in range
 var arrow: PackedScene = null
 
+# adding healht funcionality
+@export var MaxHealth: int = 100
+var current_health: int
+
 func _ready():
 	# Add the attack timer as a child and configure it
 	add_child(attack_timer)
 	attack_timer.wait_time = DAMAGE_INTERVAL
 	attack_timer.connect("timeout", Callable(self, "_apply_damage"))
-
+	current_health = MaxHealth
+	add_to_group("units")
 	# Connect the body_entered and body_exited signals of attack_area
 	var enter_result = attack_area.connect("body_entered", Callable(self, "_on_enemy_entered"))
 	var exit_result = attack_area.connect("body_exited", Callable(self, "_on_enemy_exited"))
@@ -71,3 +76,13 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		# Check if there are still enemies in range, continue attack animation if so
 		if enemy_in_range:
 			archerPlay = true  # Keep playing the attack animation
+			
+func TakeDamage(amount: int) -> void:
+	current_health -= amount
+	print("Archer took ", amount, " damage. Remaining health: ", current_health)
+	if current_health <= 0:
+		Die()
+
+func Die() -> void:
+	print("Archer has died.")
+	queue_free()  # Remove the unit from the game

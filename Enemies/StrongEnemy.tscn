@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://csk4e0i2avkuy"]
+[gd_scene load_steps=5 format=3 uid="uid://csk4e0i2avkuy"]
 
 [ext_resource type="PackedScene" uid="uid://c43jb0x3e4yyp" path="res://Enemies/EnemyBase.tscn" id="1_q2ytk"]
 [ext_resource type="Texture2D" uid="uid://br14kymgn5ehe" path="res://Assets/Images/strong_1.png" id="2_1et25"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u20ck"]
 size = Vector2(31, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55wrp"]
+size = Vector2(38, 41)
 
 [node name="EnemyBase" instance=ExtResource("1_q2ytk")]
 Speed = 40.0
@@ -19,3 +22,14 @@ flip_h = true
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(17.5, 21.5)
 shape = SubResource("RectangleShape2D_u20ck")
+
+[node name="HealthBar" parent="." index="3"]
+offset_left = 6.0
+offset_top = 0.0
+offset_right = 31.0
+offset_bottom = 4.0
+value = 100.0
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(14, 20.5)
+shape = SubResource("RectangleShape2D_55wrp")

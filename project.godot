@@ -25,6 +25,10 @@ window/size/resizable=false
 
 project/assembly_name="Guardians"
 
+[global_group]
+
+units=""
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

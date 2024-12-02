@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck6yeuu3kf2qj"]
+
+[ext_resource type="Script" path="res://Scripts/Base.cs" id="1_w2yr2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4mtn"]
+size = Vector2(103.25, 260)
+
+[node name="Base" type="Node2D"]
+script = ExtResource("1_w2yr2")
+MaxHealth = 200
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.269853, 0.810382, 0.530977, 1)
+layout_direction = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_right = 103.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(51.375, 141)
+shape = SubResource("RectangleShape2D_t4mtn")

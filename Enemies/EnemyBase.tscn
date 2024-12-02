@@ -38,3 +38,10 @@ avoidance_priority = 0.0
 debug_enabled = true
 debug_path_custom_color = Color(0.994039, 0.127967, 3.85046e-07, 1)
 debug_path_custom_point_size = 4.57
+
+[node name="Area2D" type="Area2D" parent="."]
+physics_interpolation_mode = 1
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(33, 22)

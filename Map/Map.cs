@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public partial class StrongEnemy : Node
+public partial class Map : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+	public Base BaseNode;
+
 	public override void _Ready()
 	{
-		base._Ready();
+		BaseNode = GetNode<Base>("Base"); // Adjust the path to match your scene structure
 	}
-
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{

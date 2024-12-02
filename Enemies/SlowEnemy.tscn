@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dem65hciekm6x"]
+[gd_scene load_steps=10 format=3 uid="uid://dem65hciekm6x"]
 
 [ext_resource type="PackedScene" uid="uid://c43jb0x3e4yyp" path="res://Enemies/EnemyBase.tscn" id="1_y8328"]
 [ext_resource type="Script" path="res://Enemies/SlowEnemy.cs" id="2_ftkma"]
@@ -77,6 +77,9 @@ _data = {
 "RESET": SubResource("Animation_xhipj")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47566"]
+size = Vector2(83.1683, 71.2871)
+
 [node name="EnemyBase" instance=ExtResource("1_y8328")]
 position = Vector2(-28, 0)
 scale = Vector2(0.505, 0.505)
@@ -110,3 +113,7 @@ value = 100.0
 
 [node name="NavigationAgent2D" parent="." index="4"]
 target_desired_distance = 50.0
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(73.2673, 33.6634)
+shape = SubResource("RectangleShape2D_47566")

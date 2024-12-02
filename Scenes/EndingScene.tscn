@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cosudsv6kb5w7"]
+
+[ext_resource type="Script" path="res://Scripts/EndingScene.cs" id="1_2mdmh"]
+[ext_resource type="Texture2D" uid="uid://cae2oc24epx5m" path="res://Assets/Images/Background_bg.jpg" id="2_b57n0"]
+[ext_resource type="FontFile" uid="uid://bfattwktpnrym" path="res://Assets/Fonts/ThaleahFat.ttf" id="3_yq2eu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ht6nx"]
+font = ExtResource("3_yq2eu")
+font_size = 80
+font_color = Color(0.933326, 4.81308e-06, 9.62615e-07, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="EndingScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_2mdmh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visibility_layer = 17
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_b57n0")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 121.0
+offset_right = 646.0
+offset_bottom = 195.0
+text = "Game Over !"
+label_settings = SubResource("LabelSettings_ht6nx")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="RetryButton" type="Button" parent="."]
+modulate = Color(0.759028, 0, 0.198097, 1)
+layout_mode = 0
+offset_left = 387.0
+offset_top = 241.0
+offset_right = 513.0
+offset_bottom = 277.0
+text = "Restart"

@@ -1,4 +1,3 @@
-
 using Godot;
 using System;
 
@@ -6,8 +5,9 @@ public partial class Game : Control
 {
 	private PackedScene _mapScene;      // Variable for loading Map scene
 	private PackedScene _spawnerScene; // Variable for loading Spawner scene
+	private PackedScene _guildScene;   // Variable for loading Guild scene
 
-	private PackedScene _guildScene; // Variable for loading Spawner scene
+	private Base _base; // Reference to the base
 
 	public override void _Ready()
 	{
@@ -15,12 +15,27 @@ public partial class Game : Control
 		_mapScene = GD.Load<PackedScene>("res://Map/Map.tscn"); // Path to Map scene
 		if (_mapScene != null)
 		{
-			// Instance the map scene (Node2D is assumed to be the root of Map.tscn)
 			var mapInstance = _mapScene.Instantiate<Node2D>();
 			AddChild(mapInstance); // Add Map as a child of Game
 			GD.Print("Map scene loaded and added to Game.");
 
-			// Pass the map to Spawner (optional)
+			// Access the base from the map
+			var baseNode = mapInstance.GetNode<Base>("Base");
+			if (baseNode != null)
+			{
+				_base = baseNode;
+				GD.Print("Base node found and referenced.");
+
+				// Connect the signal emitted when the base is destroyed
+				_base.Connect("BaseDestroyed", new Callable(this, nameof(OnBaseDestroyed)));
+
+			}
+			else
+			{
+				GD.PrintErr("Base node not found in Map scene.");
+			}
+
+			// Pass the map to Spawner
 			SetupSpawner(mapInstance);
 		}
 		else
@@ -28,17 +43,13 @@ public partial class Game : Control
 			GD.PrintErr("Failed to load Map scene.");
 		}
 
-		_guildScene = GD.Load<PackedScene>("res://Scenes/guild.tscn"); // Path to Guild scene
+		// Load the Guild scene
+		_guildScene = GD.Load<PackedScene>("res://Scenes/guild.tscn");
 		if (_guildScene != null)
 		{
-			// Instance the guild scene
 			var guildInstance = _guildScene.Instantiate<Control>();
-			AddChild(guildInstance); // Add Guild as a child of Game
+			AddChild(guildInstance);
 			GD.Print("Guild scene loaded and added to Game.");
-
-			// Pass the guild reference to Guild (if needed)
-			
-
 		}
 		else
 		{
@@ -49,18 +60,17 @@ public partial class Game : Control
 	private void SetupSpawner(Node2D mapInstance)
 	{
 		// Load the Spawner scene
-		_spawnerScene = GD.Load<PackedScene>("res://Scenes/Spawner.tscn"); // Path to Spawner scene
+		_spawnerScene = GD.Load<PackedScene>("res://Scenes/Spawner.tscn");
 		if (_spawnerScene != null)
 		{
-			// Instance the spawner scene
 			var spawnerInstance = _spawnerScene.Instantiate<Node2D>();
-			AddChild(spawnerInstance); // Add Spawner as a child of Game
+			AddChild(spawnerInstance);
 			GD.Print("Spawner scene loaded and added to Game.");
 
-			// Pass the map reference to Spawner (if needed)
+			// Pass the map reference to Spawner
 			if (spawnerInstance is Spawner spawnerScript)
 			{
-				spawnerScript.Initialize(mapInstance); // Initialize Spawner with map reference
+				spawnerScript.Initialize(mapInstance);
 				GD.Print("Spawner initialized with map reference.");
 			}
 		}
@@ -70,5 +80,9 @@ public partial class Game : Control
 		}
 	}
 
-
+	private void OnBaseDestroyed()
+	{
+		GD.Print("Game Over! Transitioning to Game Over scene...");
+		GetTree().ChangeSceneToFile("res://Scenes/EndingScene.tscn"); // Ensure the path is correct
+	}
 }
