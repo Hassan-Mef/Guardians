@@ -149,7 +149,7 @@ endingScene.UpdateFinalScore(finalScore);
 
 ## ✨ Credits
 
-- Developed by: [Your Name / Team Name]
+- Developed by: Hassan-Mef , Aliyan Waseem , Shaheer , Feham
 - University Project - Data Structures & Algorithms (DSA)
 - Engine: Godot Engine + C#
 
